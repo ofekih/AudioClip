@@ -25,11 +25,11 @@ import javafx.application.Platform;
  * @author Ofek Gila
  * @since  May 19th, 2015
  * @lastedited May 22nd, 2015
- * @version 2.6
+ * @version 2.7s
  */
 public class AudioClip extends Application implements Runnable	{
 
-	public final double length;
+	public double length;
 
 	private String soundLocation;
 	private Media clip;
@@ -67,7 +67,6 @@ public class AudioClip extends Application implements Runnable	{
 	}
 	public AudioClip(String soundLocation, double start, double stop, boolean loop)	{
 		load(soundLocation, start, stop, loop);
-		while (Double.isNaN(length()));
 		length = length();
 	}
 
@@ -111,6 +110,16 @@ public class AudioClip extends Application implements Runnable	{
 		play();
 	}
 
+	public void reInit(String soundLocation)	{
+		dispose();
+		load(soundLocation);
+		length = length();
+	}
+
+	public void load(String soundLocation)	{
+		load(soundLocation, 0, -1, false);
+	}
+
 	public void load(String soundLocation, double start, double stop, boolean loop)	{
 		noException();
 		this.soundLocation = soundLocation;
@@ -142,6 +151,7 @@ public class AudioClip extends Application implements Runnable	{
 		numCycles = 1;
 		running = false;
 		this.loop = loop;
+		while (Double.isNaN(length()));
 	}
 
 	public void loadNPlay()	{
