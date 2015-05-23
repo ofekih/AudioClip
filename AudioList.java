@@ -114,7 +114,7 @@ public class AudioList implements ActionListener {
 			}	while (ran == playlist.get(playlist.size() - 1));
 			playlist.add(ran);
 		} else
-			playlist.add((playlist.get(playlist.size() - 1)) % locations.length);
+			playlist.add((playlist.get(playlist.size() - 1) + 1) % locations.length);
 	}
 
 	public void nextSong()	{
