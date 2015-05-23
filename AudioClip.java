@@ -74,7 +74,7 @@ public class AudioClip extends Application implements Runnable	{
 
 	public String getExtension()	{
 		try	{
-			return soundLocation.substring(soundLocation.lastIndexOf("."));
+			return soundLocation.substring(soundLocation.lastIndexOf(".")).substring(1);
 		}
 		catch (StringIndexOutOfBoundsException e)	{
 			System.err.println("Cannot find extension in " + soundLocation);
