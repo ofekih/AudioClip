@@ -25,10 +25,13 @@ import javafx.application.Platform;
  * @author Ofek Gila
  * @since  May 19th, 2015
  * @lastedited May 22nd, 2015
- * @version 2.71
+ * @version 2.8
  */
 public class AudioClip extends Application implements Runnable	{
 
+	/**
+	 * double length The length of the audioclip when initialized
+	 */
 	public double length;
 
 	private String soundLocation;
@@ -61,13 +64,26 @@ public class AudioClip extends Application implements Runnable	{
 	public AudioClip(String soundLocation)	{
 		this(soundLocation, false);
 	}
-
 	public String getLocation()	{
 		return soundLocation;
 	}
 
+	public String getName()	{
+		return soundLocation.substring(soundLocation.lastIndexOf("\\")+1, soundLocation.lastIndexOf("."));
+	}
+
+	public String getExtension()	{
+		try	{
+			return soundLocation.substring(soundLocation.lastIndexOf("."));
+		}
+		catch (StringIndexOutOfBoundsException e)	{
+			System.err.println("Cannot find extension in " + soundLocation);
+			return "";
+		}
+	}
+
 	public String toString()	{
-		return soundLocation;
+		return getName();
 	}
 
 	public void reload()	{
