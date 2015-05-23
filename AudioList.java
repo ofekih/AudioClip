@@ -109,9 +109,8 @@ public class AudioList implements ActionListener {
 			playlist.add(shuffle ? ((int)(Math.random() * locations.length)):0);
 		else if (shuffle) {
 			int ran;
-			do {
-				ran = (int)(Math.random() * locations.length);
-			}	while (ran == playlist.get(playlist.size() - 1));
+			do ran = (int)(Math.random() * locations.length);
+			while (ran == playlist.get(playlist.size() - 1));
 			playlist.add(ran);
 		} else
 			playlist.add((playlist.get(playlist.size() - 1) + 1) % locations.length);
