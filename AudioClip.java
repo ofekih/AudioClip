@@ -25,7 +25,7 @@ import javafx.application.Platform;
  * @author Ofek Gila
  * @since  May 19th, 2015
  * @lastedited May 22nd, 2015
- * @version 2.7s
+ * @version 2.71
  */
 public class AudioClip extends Application implements Runnable	{
 
@@ -44,23 +44,7 @@ public class AudioClip extends Application implements Runnable	{
 	
 
 	public AudioClip(AudioClip ac)	{
-		noException();
-		clip = ac.getClip();
-		player = new MediaPlayer(clip);
-		player.setOnEndOfMedia(this);
-
-		play(); stop(); while (Double.isNaN(length()));
-		length = ac.length();
-		setStart(ac.getStart());
-		setStop(ac.getStop());
-		setVolume(ac.getVolume());
-		setRate(ac.getRate());
-		startat = getStart(); stopat = getStop();
-		setLoop(ac.getLoop());
-		numCycles = ac.getCycleCount();
-		totalCycles = 0;
-		cycleOn = 0;
-		running = false;
+		load(ac);
 	}
 	public AudioClip(String soundLocation, double start, double stop)	{
 		this(soundLocation, start, stop, false);
@@ -111,13 +95,39 @@ public class AudioClip extends Application implements Runnable	{
 	}
 
 	public void reInit(String soundLocation)	{
+		reInit(soundLocation, 0, -1, false);
+	}
+	public void reInit(String soundLocation, double start, double end)	{
+		reInit(soundLocation, start, end, false);
+	}
+	public void reInit(String soundLocation, double start, double end, boolean loop)	{
 		dispose();
-		load(soundLocation);
+		load(soundLocation, start, end, loop);
 		length = length();
 	}
 
 	public void load(String soundLocation)	{
 		load(soundLocation, 0, -1, false);
+	}
+
+	public void load(AudioClip ac)	{
+		noException();
+		clip = ac.getClip();
+		player = new MediaPlayer(clip);
+		player.setOnEndOfMedia(this);
+
+		play(); stop(); while (Double.isNaN(length()));
+		length = ac.length();
+		setStart(ac.getStart());
+		setStop(ac.getStop());
+		setVolume(ac.getVolume());
+		setRate(ac.getRate());
+		startat = getStart(); stopat = getStop();
+		setLoop(ac.getLoop());
+		numCycles = ac.getCycleCount();
+		totalCycles = 0;
+		cycleOn = 0;
+		running = false;
 	}
 
 	public void load(String soundLocation, double start, double stop, boolean loop)	{
