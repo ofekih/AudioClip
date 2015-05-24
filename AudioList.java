@@ -145,6 +145,7 @@ public class AudioList implements ActionListener {
 			System.err.println("Cannot find song " + songName);
 		else {
 			playlist.add(songloc);
+			clip.stop();
 			clip = new AudioClip(new File(locations[playlist.get(songOn)]).getAbsoluteFile());
 			play();
 		}
