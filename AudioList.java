@@ -134,6 +134,10 @@ public class AudioList implements ActionListener {
 		nextSong();
 	}
 
+	public boolean isPlaying()	{
+		return clip.isRunning();
+	}
+
 	public void playSong(String songName)	{
 		playlist = new ArrayList<Integer>();
 		songOn = 0;
