@@ -63,11 +63,11 @@ public class AudioList implements ActionListener {
 	public ArrayList<String> getFilesInFolder(final File folder, ArrayList<String> locations, String... extensions) {
 		for (final File fileEntry : folder.listFiles())
 			if (fileEntry.isDirectory())
-				getFilesInFolder(fileEntry, locations);
+				getFilesInFolder(fileEntry, locations, extensions);
 			else for (String extension : extensions)
 				if (getExtension(fileEntry.getPath()).equals(extension))
 					locations.add(fileEntry.getPath().substring(getDirectory().length()+1));
-			return locations;
+		return locations;
 	}
 	public String getDirectory() {
 		return  System.getProperty("user.dir");
