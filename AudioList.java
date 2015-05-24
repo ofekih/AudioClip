@@ -31,7 +31,7 @@ public class AudioList implements ActionListener {
 		playlist = new ArrayList<Integer>();
 		addNext();
 
-		clip = new AudioClip(locations[playlist.get(songOn)]);
+		clip = new AudioClip(new File(locations[playlist.get(songOn)]).getAbsoluteFile());
 		loadNextSong = new Timer((int)clip.length(), this);
 		loadNextSong.setRepeats(false);
 	}
@@ -55,7 +55,7 @@ public class AudioList implements ActionListener {
 		playlist = new ArrayList<Integer>();
 		addNext();
 
-		clip = new AudioClip(locations[playlist.get(songOn)]);
+		clip = new AudioClip(new File(locations[playlist.get(songOn)]).getAbsoluteFile());
 		loadNextSong = new Timer((int)clip.length(), this);
 		loadNextSong.setRepeats(false);
 	}
@@ -121,7 +121,7 @@ public class AudioList implements ActionListener {
 		addNext();
 		clip.stop();
 		clip.dispose();
-		clip.reInit(locations[playlist.get(songOn)]);
+		clip.reInit(new File(locations[playlist.get(songOn)]).getAbsoluteFile());
 		clip.play();
 		loadNextSong.setInitialDelay((int)clip.length());
 		loadNextSong.restart();
@@ -135,14 +135,18 @@ public class AudioList implements ActionListener {
 	}
 
 	public void playSong(String songName)	{
-		for (songOn = 0; songOn < playlist.size(); songOn++)
-			if (getName(locations[playlist.get(songOn)]).equals(songName))
+		playlist = new ArrayList<Integer>();
+		songOn = 0;
+		int songloc;
+		for (songloc = 0; songloc < locations.length; songloc++)
+			if (getName(locations[songloc]).equals(songName))
 				break;
-		if (songOn == playlist.size())
+		if (songloc == locations.length)
 			System.err.println("Cannot find song " + songName);
 		else {
-			songOn--;
-			nextSong();
+			playlist.add(songloc);
+			clip = new AudioClip(new File(locations[playlist.get(songOn)]).getAbsoluteFile());
+			play();
 		}
 	}
 
