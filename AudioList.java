@@ -8,9 +8,9 @@ import java.io.File;
  * Makes an automatically-playing playlist of AudioClip files
  * Supports wav, mp3, mp4, flv, aif, and more filetypes
  * @author Kesav Viswanadha and Ofek Gila
- * @version 2.0
+ * @version 2.3
  * @since  May 22nd, 2015
- * @lastedited May 23rd, 2015
+ * @lastedited May 24th, 2015
  */
 
 public class AudioList implements ActionListener {
@@ -134,6 +134,12 @@ public class AudioList implements ActionListener {
 		nextSong();
 	}
 
+	public void speedUp(double rate) {
+		clip.setRate(rate);
+		loadNextSong.setInitialDelay((int)((loadNextSong.getDelay() - clip.getPosition()) / rate));
+		loadNextSong.restart();
+	}
+
 	public boolean isPlaying()	{
 		return clip.isRunning();
 	}
@@ -141,6 +147,7 @@ public class AudioList implements ActionListener {
 	public void playSong(String songName)	{
 		playlist = new ArrayList<Integer>();
 		songOn = 0;
+		clip.stop();
 		int songloc;
 		for (songloc = 0; songloc < locations.length; songloc++)
 			if (getName(locations[songloc]).equals(songName))
@@ -149,7 +156,6 @@ public class AudioList implements ActionListener {
 			System.err.println("Cannot find song " + songName);
 		else {
 			playlist.add(songloc);
-			clip.stop();
 			clip = new AudioClip(new File(locations[playlist.get(songOn)]).getAbsoluteFile());
 			play();
 		}
