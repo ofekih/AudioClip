@@ -127,7 +127,7 @@ public class AudioList implements ActionListener {
 				break;
 			case INITIAL_SHUFFLE:
 				if (playlist.size() >= locations.length)
-					playlist.add(playlist.get(songOn - locations.length));
+					playlist.add(playlist.get(playlist.size() - locations.length));
 				else	{
 					do ran = (int)(Math.random() * locations.length);
 					while (inPlaylist(ran));
@@ -194,5 +194,13 @@ public class AudioList implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		nextSong();
+	}
+
+	public AudioClip getAudioClip()	{
+		return clip;
+	}
+
+	public String getSongName()	{
+		return clip.getName();
 	}
 }
